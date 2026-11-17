@@ -159,22 +159,7 @@ backend lo riceve nell'header `X-Demo-Journey`.
 | Inviato con ogni chiamata API | [api.ts](src/store-web/src/api.ts#L26) |
 | Letto dal backend e impostato come tag/scope | [Program.cs](src/Store.Api/Program.cs#L76-L87) |
 
-## 6. Cosa NON è presente (e non serve)
-
-- Nessuna Data Collection Rule, Data Collection Endpoint o stream `Custom-*_CL`.
-- Nessun ruolo *Monitoring Metrics Publisher* su una DCR.
-- Nessun codice di correlazione scritto a mano: header W3C gestiti dagli SDK.
-- Nessuno schema da mantenere in Log Analytics: i campi custom viaggiano in
-  `Properties`.
-
-## 7. Limiti del demo rispetto a un contesto con rete privata
-
-Il demo usa una connection string Application Insights letta dal browser a runtime.
-Configurazioni con private endpoint o solo Entra ID richiedono passaggi
-aggiuntivi non coperti qui; vedere la sezione *Da chiarire insieme* della
-mail.
-
-## 8. Utente, sessione e username applicativo
+## 6. Utente, sessione e username applicativo
 
 **Nel demo**, l'SDK browser ha i [cookie abilitati](src/store-web/src/telemetry.ts#L33-L98):
 
