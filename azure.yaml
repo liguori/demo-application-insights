@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://aka.ms/azure.yaml.json
+name: appinsights-analytics-demo
+infra:
+  provider: bicep
+  path: infra
+  module: main
+services:
+  web:
+    project: ./src/Store.Api
+    language: dotnet
+    host: appservice

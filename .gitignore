@@ -1,0 +1,16 @@
+.azure/
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/wwwroot/
+**/TestResults/
+**/playwright-report/
+**/test-results/
+.env
+.env.*
+!.env.example
+*.user
+.DS_Store
+.artifacts/
+.tools/

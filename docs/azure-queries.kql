@@ -1,0 +1,28 @@
+// Queste query sono per il workspace Log Analytics, non per la tab Logs
+// con lo schema classico (customEvents, requests) di Application Insights.
+
+union withsource=TableName AppEvents, AppRequests, AppDependencies, AppExceptions,
+    AppPageViews, AppBrowserTimings, AppTraces, AppMetrics
+| where TimeGenerated > ago(1h)
+| summarize Records = count() by TableName, AppRoleName
+
+let journey = "INCOLLA-JOURNEY-ID";
+union AppEvents, AppRequests, AppDependencies, AppExceptions, AppPageViews, AppTraces
+| where tostring(Properties.journeyId) == journey
+| project TimeGenerated, Type, AppRoleName, OperationId, ParentId, Properties
+| order by TimeGenerated asc
+
+AppEvents
+| where TimeGenerated > ago(1h)
+| where tostring(Properties.baseTypeSource) == "ClickEvent"
+| project TimeGenerated, Name, Properties, OperationId
+
+AppEvents
+| where TimeGenerated > ago(1h) and Name == "OrderPlaced"
+| project TimeGenerated, Name, Properties, OperationId
+
+let operation = "INCOLLA-OPERATION-ID";
+union AppRequests, AppDependencies, AppExceptions, AppTraces, AppEvents
+| where OperationId == operation
+| project TimeGenerated, Type, AppRoleName, OperationId, ParentId, Properties
+| order by TimeGenerated asc
